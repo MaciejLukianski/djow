@@ -1,4 +1,4 @@
-{% load staticfiles compressed %}
+{% load staticfiles compress %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -10,8 +10,10 @@
     {% endblock %}
 
     {% block style_base %}
-        {% compressed_css 'style' %}
-        {% block extra_style %}{% endblock %}
+         {% compress css %}
+             <link href="{% static 'css/main.css' %}" rel="stylesheet">
+         {% endcompress %}
+         {% block extra_style %}{% endblock %}
     {% endblock %}
 
     {% block html5shim %}
@@ -67,37 +69,6 @@
 
     {% endblock %}
 
-
-
-    <header>
-        {#                    <div class="navbar navbar-default {% block navbar_class %}navbar-fixed-top{% endblock %}">#}
-        {#                        <div class="container">#}
-        {#                        {% block topbar %}#}
-        {#                            <div class="navbar-header">#}
-        {#                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">#}
-        {#                                    <span class="fa fa-bar"></span>#}
-        {#                                    <span class="fa fa-bar"></span>#}
-        {#                                    <span class="fa fa-bar"></span>#}
-        {#                                </button>#}
-        {#                                {% block site_brand %}<a class="navbar-brand" href="{% url "home" %}">SITE NAME</a>{% endblock %}#}
-        {#                            </div>#}
-        {#                            <div class="collapse navbar-collapse">#}
-        {#                                {% block nav %}#}
-        {#                                    {% comment %}#}
-        {#                                        <ul class="nav">#}
-        {#                                            <li><a href="#tab_one">One</a></li>#}
-        {#                                            <li><a href="#tab_two">Two</a></li>#}
-        {#                                        </ul>#}
-        {#                                    {% endcomment %}#}
-        {#                                {% endblock %}#}
-        {#                                #}
-        {#                            </div>#}
-        {#                        {% endblock %}#}
-        {#                        </div>#}
-        {#                    </div>#}
-    </header>
-
-
     {% block body_base %}
         <section id="content_body">
             <div class="container">
@@ -120,7 +91,12 @@
 </div>
 
 {% block script_base %}
-    {% compressed_js 'main' %}
+    {% compress js %}
+        <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/project_theme.js' %}"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+    {% endcompress %}
     {% block extra_script %}{% endblock %}
 {% endblock %}
 
